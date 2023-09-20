@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void removeElements(vector<int>& arr, int startIndex, int count) {
+    if (startIndex < 0 || startIndex >= arr.size() || count <= 0) {
+        // Проверяем, что индекс в пределах массива и количество цифр больше нуля.
+        cout << "Некорректные параметры" << endl;
+        return;
+    }
+
+    // Используем метод erase для удаления цифр из вектора.
+    arr.erase(arr.begin() + startIndex, arr.begin() + startIndex + count);
+}
+
+int main() {
+    vector<int> myArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    // Удаляем блок элементов, начиная с 3  удаляем 4 цифры.
+    removeElements(myArray, 3, 4);
+
+    // Выводим оставшиеся цифры.
+    for (int num : myArray) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
