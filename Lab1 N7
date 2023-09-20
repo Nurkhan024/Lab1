@@ -1,0 +1,65 @@
+#include <iostream>
+
+using namespace std;
+
+bool isPrime(int number) {
+    if (number <= 1) {
+        return false;
+    }
+    for (int i = 2; i * i <= number; ++i) {
+        if (number % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int* removePrimes(int* arr, int& size) {
+    int newSize = 0;
+    for (int i = 0; i < size; ++i) {
+        if (!isPrime(arr[i])) {
+            ++newSize;
+        }
+    }
+
+    int* newArray = new int[newSize];
+    int newIndex = 0;
+
+    for (int i = 0; i < size; ++i) {
+        if (!isPrime(arr[i])) {
+            newArray[newIndex] = arr[i];
+            ++newIndex;
+        }
+    }
+
+    // Освобождаем память, выделенную для исходного массива.
+    delete[] arr;
+
+    // Обновляем размер и возвращаем новый массив.
+    size = newSize;
+    return newArray;
+}
+
+int main() {
+    int size = 6;
+    int* myArray = new int[size] {2, 3, 5, 7, 8, 11};
+
+    cout << "Исходный массив: ";
+    for (int i = 0; i < size; ++i) {
+        cout << myArray[i] << " ";
+    }
+    cout << endl;
+
+    myArray = removePrimes(myArray, size);
+
+    cout << "Массив без простых чисел: ";
+    for (int i = 0; i < size; ++i) {
+        cout << myArray[i] << " ";
+    }
+    cout << endl;
+
+    // Освобождаем память после использования нового массива.
+    delete[] myArray;
+
+    return 0;
+}
