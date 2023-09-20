@@ -1,0 +1,45 @@
+#include <iostream>
+
+using namespace std;
+
+void appendElements(int*& arr, int& size, const int* elementsToAppend, int elementsCount) {
+    // Создаем новый массив, который будет больше на количество элементов для добавления.
+    int* newArray = new int[size + elementsCount];
+    
+    // Копируем существующие элементы в новый массив.
+    for (int i = 0; i < size; ++i) {
+        newArray[i] = arr[i];
+    }
+    
+    // Копируем элементы для добавления в новый массив, начиная с конца.
+    for (int i = 0; i < elementsCount; ++i) {
+        newArray[size + i] = elementsToAppend[i];
+    }
+
+    // Удаляем старый массив и обновляем указатель и размер.
+    delete[] arr;
+    arr = newArray;
+    size += elementsCount;
+}
+
+int main() {
+    int* myArray = nullptr;
+    int size = 0;
+
+    int elementsToAdd[] = {4, 5, 6};
+    int elementsCount = sizeof(elementsToAdd) / sizeof(elementsToAdd[0]);
+
+    // Добавляем блок элементов в конец массива.
+    appendElements(myArray, size, elementsToAdd, elementsCount);
+
+    // Выводим элементы массива после добавления.
+    for (int i = 0; i < size; ++i) {
+        cout << myArray[i] << " ";
+    }
+    cout << endl;
+
+    // Освобождаем выделенную память при завершении программы.
+    delete[] myArray;
+
+    return 0;
+}
